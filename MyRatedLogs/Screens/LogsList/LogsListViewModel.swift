@@ -11,11 +11,15 @@ import Combine
 class LogsListViewModel : ObservableObject {
     
     @Published var logs = [Log]()
-    var anyCancellable = Set<AnyCancellable>()
+    var cancellables = Set<AnyCancellable>()
     let logService: LogService
     
     init(logService: LogService) {
         self.logService = logService
+    }
+    
+    deinit {
+        cancellables.removeAll()
     }
     
     func viewOnAppear() {
@@ -24,7 +28,7 @@ class LogsListViewModel : ObservableObject {
             .sink { (logs) in
                 self.logs = logs
             }
-            .store(in: &anyCancellable)
+            .store(in: &cancellables)
     }
     
 }

@@ -31,7 +31,16 @@ struct LogsListView: View {
                 if viewModel.logs.isEmpty {
                     Text("No logs")
                 } else {
-                    Text("There is logs to be displayed...")
+                    ForEach(viewModel.logs, id: \.description) { log in
+                        NavigationLink(
+                            log.description,
+                            destination: LogDetailView(
+                                viewModel: LogDetailViewModel(
+                                    logId: log.id,
+                                    logService: viewModel.logService)
+                            )
+                        )
+                    }
                 }
             }
         }

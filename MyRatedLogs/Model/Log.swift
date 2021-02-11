@@ -9,8 +9,15 @@ import Foundation
 
 struct Log {
     
+    let id: Int
     let description: String
     let date: Date
     let ranking: Int
+    
+    var dateFormatted : String {
+        get {
+            return "2001-09-11"
+        }
+    }
     
 }
