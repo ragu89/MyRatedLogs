@@ -11,14 +11,14 @@ import Combine
 class LogDetailViewModel : ObservableObject {
     
     let logId: Int
-    let logService: LogService
+    let logFetching: LogFetching
     
     @Published var fetchedLog: Log?
     var cancellables = Set<AnyCancellable>()
     
-    init(logId: Int, logService: LogService) {
+    init(logId: Int, logFetching: LogFetching) {
         self.logId = logId
-        self.logService = logService
+        self.logFetching = logFetching
     }
     
     deinit {
@@ -26,7 +26,7 @@ class LogDetailViewModel : ObservableObject {
     }
     
     func viewOnAppear() {
-        logService.fetchLog(logId: logId)
+        logFetching.fetchLog(logId: logId)
             .receive(on: RunLoop.main)
             .sink {
                 self.fetchedLog = $0

@@ -1,5 +1,5 @@
 //
-//  LogService.swift
+//  MockLogFetching.swift
 //  MyRatedLogs
 //
 //  Created by Guye Raphael, I233 on 10.02.21.
@@ -8,10 +8,15 @@
 import Foundation
 import Combine
 
-class LogService {
+protocol LogFetching {
+    func fetchLogs() -> AnyPublisher<[Log], Never>
+    func fetchLog(logId: Int) -> AnyPublisher<Log, Never>
+}
+
+class MockLogFetching : LogFetching {
     
     func fetchLogs() -> AnyPublisher<[Log], Never> {
-        Just(LogService.createMockList())
+        Just(MockLogFetching.createMockList())
             .eraseToAnyPublisher()
     }
     

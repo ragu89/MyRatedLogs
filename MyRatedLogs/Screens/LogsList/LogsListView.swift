@@ -37,7 +37,7 @@ struct LogsListView: View {
                             destination: LogDetailView(
                                 viewModel: LogDetailViewModel(
                                     logId: log.id,
-                                    logService: viewModel.logService)
+                                    logFetching: viewModel.logFetching)
                             )
                         )
                     }
@@ -51,7 +51,7 @@ struct LogsListView_Previews: PreviewProvider {
     static var previews: some View {
         LogsListView(
             viewModel: LogsListViewModel(
-                logService: LogService()
+                logFetching: MockLogFetching()
             )
         )
     }

@@ -12,10 +12,10 @@ class LogsListViewModel : ObservableObject {
     
     @Published var logs = [Log]()
     var cancellables = Set<AnyCancellable>()
-    let logService: LogService
+    let logFetching: LogFetching
     
-    init(logService: LogService) {
-        self.logService = logService
+    init(logFetching: LogFetching) {
+        self.logFetching = logFetching
     }
     
     deinit {
@@ -23,7 +23,7 @@ class LogsListViewModel : ObservableObject {
     }
     
     func viewOnAppear() {
-        logService.fetchLogs()
+        logFetching.fetchLogs()
             .receive(on: RunLoop.main)
             .sink { (logs) in
                 self.logs = logs
