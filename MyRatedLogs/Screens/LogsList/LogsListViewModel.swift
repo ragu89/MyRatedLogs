@@ -23,12 +23,30 @@ class LogsListViewModel : ObservableObject {
     }
     
     func viewOnAppear() {
+        fetchLogs()
+    }
+    
+    func fetchLogs() {
         logFetching.fetchLogs()
             .receive(on: RunLoop.main)
             .sink { (logs) in
                 self.logs = logs
             }
             .store(in: &cancellables)
+    }
+    
+    func addLog() {
+        logFetching.addLog(
+            log: Log(
+                id: 42,
+                description: "Description of a Log",
+                date: Date(),
+                ranking: 3)
+        )
+        .sink { (_) in
+            self.fetchLogs()
+        }
+        .store(in: &cancellables)
     }
     
 }

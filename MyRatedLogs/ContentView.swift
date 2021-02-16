@@ -11,7 +11,7 @@ struct ContentView: View {
     var body: some View {
         LogsListView(
             viewModel: LogsListViewModel(
-                logFetching: MockLogFetching()
+                logFetching: LogFetcher()
             )
         )
     }

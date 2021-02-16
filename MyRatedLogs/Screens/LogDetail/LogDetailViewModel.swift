@@ -27,7 +27,8 @@ class LogDetailViewModel : ObservableObject {
     
     func viewOnAppear() {
         logFetching.fetchLog(logId: logId)
-            .receive(on: RunLoop.main)
+            .subscribe(on: DispatchQueue.global())
+            .receive(on: DispatchQueue.main)
             .sink {
                 self.fetchedLog = $0
             }

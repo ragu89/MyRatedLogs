@@ -19,6 +19,11 @@ struct LogsListView: View {
         NavigationView {
             content
                 .navigationTitle("My Rated logs")
+                .navigationBarItems(
+                    trailing: Button("Add") {
+                        viewModel.addLog()
+                    }
+                )
         }
         .onAppear(perform: {
             viewModel.viewOnAppear()

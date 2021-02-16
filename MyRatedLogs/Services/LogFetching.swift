@@ -10,7 +10,33 @@ import Combine
 
 protocol LogFetching {
     func fetchLogs() -> AnyPublisher<[Log], Never>
-    func fetchLog(logId: Int) -> AnyPublisher<Log, Never>
+    func fetchLog(logId: Int) -> AnyPublisher<Log?, Never>
+    func addLog(log: Log) -> AnyPublisher<Bool, Never>
+}
+
+class LogFetcher : LogFetching {
+    
+    private var logs = [Log]()
+    
+    func fetchLogs() -> AnyPublisher<[Log], Never> {
+        return Just(logs).eraseToAnyPublisher()
+    }
+    
+    func fetchLog(logId: Int) -> AnyPublisher<Log?, Never> {
+        return logs
+            .first(where: {
+                $0.id == logId
+            })
+            .map {
+                Just($0).eraseToAnyPublisher()
+            } ?? Just(nil).eraseToAnyPublisher()
+    }
+    
+    func addLog(log: Log) -> AnyPublisher<Bool, Never> {
+        logs.append(log)
+        return Just(true).eraseToAnyPublisher()
+    }
+    
 }
 
 class MockLogFetching : LogFetching {
@@ -20,10 +46,14 @@ class MockLogFetching : LogFetching {
             .eraseToAnyPublisher()
     }
     
-    func fetchLog(logId: Int) -> AnyPublisher<Log, Never> {
+    func fetchLog(logId: Int) -> AnyPublisher<Log?, Never> {
         Just(
             Log(id: 42, description: "this is a mock", date: Date(), ranking: 4)
         ).eraseToAnyPublisher()
+    }
+    
+    func addLog(log: Log) -> AnyPublisher<Bool, Never> {
+        return Just(true).eraseToAnyPublisher()
     }
     
     private static func createMockList() -> [Log] {
