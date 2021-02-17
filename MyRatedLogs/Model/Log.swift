@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Log {
+struct Log: Codable {
     
-    let id: Int
+    let id: String
     let description: String
     let date: Date
     let ranking: Int

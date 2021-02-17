@@ -10,13 +10,13 @@ import Combine
 
 class LogDetailViewModel : ObservableObject {
     
-    let logId: Int
+    let logId: String
     let logFetching: LogFetching
     
     @Published var fetchedLog: Log?
     var cancellables = Set<AnyCancellable>()
     
-    init(logId: Int, logFetching: LogFetching) {
+    init(logId: String, logFetching: LogFetching) {
         self.logId = logId
         self.logFetching = logFetching
     }

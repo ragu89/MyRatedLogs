@@ -41,7 +41,7 @@ struct LogDetailView_Previews: PreviewProvider {
     static var previews: some View {
         LogDetailView(
             viewModel: LogDetailViewModel(
-                logId: 42,
+                logId: "42",
                 logFetching: MockLogFetching()
             )
         )
