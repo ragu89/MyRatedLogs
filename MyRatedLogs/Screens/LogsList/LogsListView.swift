@@ -31,23 +31,27 @@ struct LogsListView: View {
     }
     
     var content: some View {
-        return Form {
-            Section {
-                if viewModel.logs.isEmpty {
-                    Text("No logs")
-                } else {
-                    ForEach(viewModel.logs, id: \.description) { log in
-                        NavigationLink(
-                            log.description,
-                            destination: LogDetailView(
-                                viewModel: LogDetailViewModel(
-                                    logId: log.id,
-                                    logFetching: viewModel.logFetching)
+        if viewModel.isLoading == true {
+            return AnyView(ProgressView("Loading"))
+        } else {
+            return AnyView(Form {
+                Section {
+                    if viewModel.logs.isEmpty {
+                        Text("No logs")
+                    } else {
+                        ForEach(viewModel.logs, id: \.description) { log in
+                            NavigationLink(
+                                log.description,
+                                destination: LogDetailView(
+                                    viewModel: LogDetailViewModel(
+                                        logId: log.id,
+                                        logFetching: viewModel.logFetching)
+                                )
                             )
-                        )
+                        }
                     }
                 }
-            }
+            })
         }
     }
 }

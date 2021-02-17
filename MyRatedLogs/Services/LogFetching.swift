@@ -19,7 +19,8 @@ class LogFetcher : LogFetching {
     private var logs = [Log]()
     
     func fetchLogs() -> AnyPublisher<[Log], Never> {
-        return Just(logs).eraseToAnyPublisher()
+        return Just(logs)
+            .eraseToAnyPublisher()
     }
     
     func fetchLog(logId: Int) -> AnyPublisher<Log?, Never> {
@@ -28,13 +29,25 @@ class LogFetcher : LogFetching {
                 $0.id == logId
             })
             .map {
-                Just($0).eraseToAnyPublisher()
+                Just($0)
+                    .subscribe(on: OperationQueue())
+                    .map {
+                        sleep(2)
+                        return $0
+                    }
+                    .eraseToAnyPublisher()
             } ?? Just(nil).eraseToAnyPublisher()
     }
     
     func addLog(log: Log) -> AnyPublisher<Bool, Never> {
-        logs.append(log)
-        return Just(true).eraseToAnyPublisher()
+        return Just(true)
+            .subscribe(on: OperationQueue())
+            .map{
+                sleep(2)
+                self.logs.append(log)
+                return $0
+            }
+            .eraseToAnyPublisher()
     }
     
 }

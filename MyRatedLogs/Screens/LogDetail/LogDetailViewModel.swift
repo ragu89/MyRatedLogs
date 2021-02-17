@@ -26,6 +26,11 @@ class LogDetailViewModel : ObservableObject {
     }
     
     func viewOnAppear() {
+        fetchLogs()
+    }
+    
+    private func fetchLogs() {
+        fetchedLog = nil
         logFetching.fetchLog(logId: logId)
             .subscribe(on: DispatchQueue.global())
             .receive(on: DispatchQueue.main)

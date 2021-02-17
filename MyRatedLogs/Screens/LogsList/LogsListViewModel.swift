@@ -11,6 +11,7 @@ import Combine
 class LogsListViewModel : ObservableObject {
     
     @Published var logs = [Log]()
+    @Published var isLoading = false
     var cancellables = Set<AnyCancellable>()
     let logFetching: LogFetching
     
@@ -27,15 +28,18 @@ class LogsListViewModel : ObservableObject {
     }
     
     func fetchLogs() {
+        isLoading = true
         logFetching.fetchLogs()
             .receive(on: RunLoop.main)
             .sink { (logs) in
                 self.logs = logs
+                self.isLoading = false
             }
             .store(in: &cancellables)
     }
     
     func addLog() {
+        isLoading = true
         logFetching.addLog(
             log: Log(
                 id: 42,
@@ -43,8 +47,10 @@ class LogsListViewModel : ObservableObject {
                 date: Date(),
                 ranking: 3)
         )
+        .receive(on: RunLoop.main)
         .sink { (_) in
             self.fetchLogs()
+            self.isLoading = false
         }
         .store(in: &cancellables)
     }
