@@ -60,7 +60,7 @@ struct LogsListView_Previews: PreviewProvider {
     static var previews: some View {
         LogsListView(
             viewModel: LogsListViewModel(
-                logFetching: MockLogFetching()
+                logFetching: LogFetcher()
             )
         )
     }

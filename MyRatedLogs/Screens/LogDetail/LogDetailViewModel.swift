@@ -14,6 +14,7 @@ class LogDetailViewModel : ObservableObject {
     let logFetching: LogFetching
     
     @Published var fetchedLog: Log?
+    @Published var loadingError = false
     var cancellables = Set<AnyCancellable>()
     
     init(logId: String, logFetching: LogFetching) {
@@ -31,12 +32,21 @@ class LogDetailViewModel : ObservableObject {
     
     private func fetchLogs() {
         fetchedLog = nil
+        loadingError = false
         logFetching.fetchLog(logId: logId)
             .subscribe(on: DispatchQueue.global())
             .receive(on: DispatchQueue.main)
-            .sink {
-                self.fetchedLog = $0
-            }
+            .sink(receiveCompletion: { (completion) in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print("Error when trying to fetch log \(self.logId): \(error)")
+                    self.loadingError = true
+                }
+            }, receiveValue: { (fetchedLog) in
+                self.fetchedLog = fetchedLog
+            })
             .store(in: &cancellables)
     }
     

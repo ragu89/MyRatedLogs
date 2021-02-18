@@ -23,7 +23,9 @@ struct LogDetailView: View {
     }
     
     private var content: some View {
-        if viewModel.fetchedLog == nil {
+        if viewModel.loadingError {
+            return AnyView(Text("An issue happened when loading the Log \(viewModel.logId)"))
+        } else if viewModel.fetchedLog == nil {
             return AnyView(ProgressView("Loading log"))
         } else {
             return AnyView(
@@ -42,7 +44,7 @@ struct LogDetailView_Previews: PreviewProvider {
         LogDetailView(
             viewModel: LogDetailViewModel(
                 logId: "42",
-                logFetching: MockLogFetching()
+                logFetching: LogFetcher()
             )
         )
     }

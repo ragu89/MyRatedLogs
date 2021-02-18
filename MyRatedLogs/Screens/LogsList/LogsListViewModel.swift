@@ -42,7 +42,7 @@ class LogsListViewModel : ObservableObject {
         isLoading = true
         logFetching.addLog(
             log: Log(
-                id: "42",
+                id: "2",
                 description: "Description of a Log",
                 date: Date(),
                 ranking: 3)
