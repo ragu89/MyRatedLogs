@@ -40,19 +40,32 @@ class LogsListViewModel : ObservableObject {
     
     func addLog() {
         isLoading = true
-        logFetching.addLog(
-            log: Log(
-                id: "2",
-                description: "Description of a Log",
-                date: Date(),
-                ranking: 3)
-        )
-        .receive(on: RunLoop.main)
-        .sink { (_) in
-            self.fetchLogs()
-            self.isLoading = false
+        let log = Log(id: "42", description: "Description of a Log", date: Date(), ranking: 3)
+        do {
+            try logFetching.postLog(log: log)
+                .sink { (completion) in
+                    switch completion {
+                    case .finished:
+                        print("postLog completion success")
+                        break
+                    case .failure(let error):
+                        print("Error when trying to post log: \(error)")
+                        break
+                    }
+                    self.fetchLogs()
+                } receiveValue: { (data, response) in
+                    print("receiveValue data: \(data)")
+                    print("receiveValue response: \(response)")
+                    guard let result = try? JSONDecoder().decode(Log.self, from: data) else {
+                        print("error wheny trying to decode data in a Log")
+                        return
+                    }
+                    print("result: \(result)")
+                }
+                .store(in: &cancellables)
+        } catch let error {
+            print("Exception catched when trying to postLog: \(error)")
         }
-        .store(in: &cancellables)
     }
     
 }

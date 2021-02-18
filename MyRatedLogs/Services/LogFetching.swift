@@ -12,6 +12,12 @@ protocol LogFetching {
     func fetchLogs() -> AnyPublisher<[Log], Never>
     func fetchLog(logId: String) -> AnyPublisher<Log, Error>
     func addLog(log: Log) -> AnyPublisher<Bool, Never>
+    func postLog(log: Log) throws -> URLSession.DataTaskPublisher
+}
+
+enum APIError: Error {
+    case invalidBody
+    case unknownError
 }
 
 class LogFetcher : LogFetching {
@@ -24,11 +30,7 @@ class LogFetcher : LogFetching {
             .map {
                 $0.data
             }
-            .map {
-                let foo = try! JSONDecoder().decode([Log].self, from: $0)
-                return foo
-            }
-//            .decode(type: [Log].self, decoder: JSONDecoder())
+            .decode(type: [Log].self, decoder: JSONDecoder())
             .replaceError(with: [])
             .eraseToAnyPublisher()
     }
@@ -52,6 +54,20 @@ class LogFetcher : LogFetching {
                 return $0
             }
             .eraseToAnyPublisher()
+    }
+    
+    func postLog(log: Log) throws -> URLSession.DataTaskPublisher {
+        
+        guard let logData = try? JSONEncoder().encode(log) else {
+            throw APIError.invalidBody
+        }
+        
+        let url = URL.init(string: "https://602cf11a30ba720017223990.mockapi.io/logs")
+        var request = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        request.httpBody = logData
+        
+        return URLSession.shared.dataTaskPublisher(for: request)
     }
     
 }
