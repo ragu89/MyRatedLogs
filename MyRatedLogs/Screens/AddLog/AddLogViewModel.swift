@@ -13,7 +13,8 @@ class AddLogViewModel : ObservableObject {
     @Binding var isPresented: Bool
     
     @Published var description = ""
-    @Published var ranking = ""
+    @Published var date = Date()
+    @Published var ranking = 0
     
     init(isPresented: Binding<Bool>) {
         self._isPresented = isPresented
