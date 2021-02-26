@@ -49,6 +49,9 @@ struct LogsListView: View {
                                 )
                             )
                         }
+                        .onDelete(perform: {
+                            self.viewModel.delete(at: $0)
+                        })
                     }
                 }
             })

@@ -68,4 +68,28 @@ class LogsListViewModel : ObservableObject {
         }
     }
     
+    func delete(at offsets: IndexSet) {
+        isLoading = true
+        
+        guard let logId = offsets.map({ self.logs[$0].id }).first else {
+            isLoading = false
+            return
+        }
+        
+        logFetching.deleteLog(logId: logId)
+            .sink { (completion) in
+                switch completion {
+                case .finished:
+                    print("deleteLog \(logId) completion success")
+                    break
+                case .failure(let error):
+                    print("Error when trying to delete log \(logId): \(error)")
+                    break
+                }
+                self.fetchLogs()
+            } receiveValue: { (data, response) in
+            }
+            .store(in: &cancellables)
+    }
+    
 }

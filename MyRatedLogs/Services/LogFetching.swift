@@ -13,6 +13,7 @@ protocol LogFetching {
     func fetchLog(logId: String) -> AnyPublisher<Log, Error>
     func addLog(log: Log) -> AnyPublisher<Bool, Never>
     func postLog(log: Log) throws -> URLSession.DataTaskPublisher
+    func deleteLog(logId: String) -> URLSession.DataTaskPublisher
 }
 
 enum APIError: Error {
@@ -66,6 +67,15 @@ class LogFetcher : LogFetching {
         var request = URLRequest(url: url!)
         request.httpMethod = "POST"
         request.httpBody = logData
+        
+        return URLSession.shared.dataTaskPublisher(for: request)
+    }
+    
+    func deleteLog(logId: String) -> URLSession.DataTaskPublisher {
+        
+        let url = URL.init(string: "https://602cf11a30ba720017223990.mockapi.io/logs/\(logId)")
+        var request = URLRequest(url: url!)
+        request.httpMethod = "DELETE"
         
         return URLSession.shared.dataTaskPublisher(for: request)
     }
