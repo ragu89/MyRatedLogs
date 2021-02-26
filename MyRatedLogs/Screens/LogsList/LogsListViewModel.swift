@@ -12,6 +12,8 @@ class LogsListViewModel : ObservableObject {
     
     @Published var logs = [Log]()
     @Published var isLoading = false
+    @Published var isAddLogViewDisplayed = false
+    
     var cancellables = Set<AnyCancellable>()
     let logFetching: LogFetching
     

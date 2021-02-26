@@ -21,7 +21,20 @@ struct LogsListView: View {
                 .navigationTitle("My Rated logs")
                 .navigationBarItems(
                     trailing: Button("Add") {
-                        viewModel.addLog()
+                        viewModel.isAddLogViewDisplayed = true
+                    }
+                )
+                .sheet(
+                    isPresented: $viewModel.isAddLogViewDisplayed,
+                    onDismiss: {
+                        viewModel.isAddLogViewDisplayed = false
+                    },
+                    content: {
+                        AddLogView(
+                            viewModel: AddLogViewModel(
+                                isPresented: $viewModel.isAddLogViewDisplayed
+                            )
+                        )
                     }
                 )
         }

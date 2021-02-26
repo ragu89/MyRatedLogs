@@ -15,6 +15,8 @@
 		F74F89D225D4382C009EF078 /* LogsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74F89D125D4382C009EF078 /* LogsListViewModel.swift */; };
 		F74F89D625D43C12009EF078 /* LogFetching.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74F89D525D43C12009EF078 /* LogFetching.swift */; };
 		F74F89DB25D43D0A009EF078 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74F89DA25D43D0A009EF078 /* Log.swift */; };
+		F7743BFE25E93A5200C06F72 /* AddLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7743BFD25E93A5200C06F72 /* AddLogView.swift */; };
+		F7743C0225E93B1100C06F72 /* AddLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7743C0125E93B1100C06F72 /* AddLogViewModel.swift */; };
 		F7756DB825D57E33000B48A1 /* LogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7756DB725D57E33000B48A1 /* LogDetailView.swift */; };
 		F7756DBB25D57E8B000B48A1 /* LogDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7756DBA25D57E8B000B48A1 /* LogDetailViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -30,6 +32,8 @@
 		F74F89D125D4382C009EF078 /* LogsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsListViewModel.swift; sourceTree = "<group>"; };
 		F74F89D525D43C12009EF078 /* LogFetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFetching.swift; sourceTree = "<group>"; };
 		F74F89DA25D43D0A009EF078 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		F7743BFD25E93A5200C06F72 /* AddLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLogView.swift; sourceTree = "<group>"; };
+		F7743C0125E93B1100C06F72 /* AddLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLogViewModel.swift; sourceTree = "<group>"; };
 		F7756DB725D57E33000B48A1 /* LogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailView.swift; sourceTree = "<group>"; };
 		F7756DBA25D57E8B000B48A1 /* LogDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,6 +91,7 @@
 		F74F89CA25D43771009EF078 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				F7743BFC25E93A3C00C06F72 /* AddLog */,
 				F74F89CC25D437A1009EF078 /* LogDetail */,
 				F74F89CB25D43778009EF078 /* LogsList */,
 			);
@@ -125,6 +130,15 @@
 				F74F89DA25D43D0A009EF078 /* Log.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		F7743BFC25E93A3C00C06F72 /* AddLog */ = {
+			isa = PBXGroup;
+			children = (
+				F7743BFD25E93A5200C06F72 /* AddLogView.swift */,
+				F7743C0125E93B1100C06F72 /* AddLogViewModel.swift */,
+			);
+			path = AddLog;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,9 +211,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F74F89D625D43C12009EF078 /* LogFetching.swift in Sources */,
+				F7743BFE25E93A5200C06F72 /* AddLogView.swift in Sources */,
 				F74F89B625D42D6E009EF078 /* ContentView.swift in Sources */,
 				F74F89DB25D43D0A009EF078 /* Log.swift in Sources */,
 				F74F89B425D42D6E009EF078 /* MyRatedLogsApp.swift in Sources */,
+				F7743C0225E93B1100C06F72 /* AddLogViewModel.swift in Sources */,
 				F7756DBB25D57E8B000B48A1 /* LogDetailViewModel.swift in Sources */,
 				F74F89CE25D4381F009EF078 /* LogsListView.swift in Sources */,
 				F74F89D225D4382C009EF078 /* LogsListViewModel.swift in Sources */,
