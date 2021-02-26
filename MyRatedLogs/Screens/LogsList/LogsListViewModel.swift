@@ -40,36 +40,6 @@ class LogsListViewModel : ObservableObject {
             .store(in: &cancellables)
     }
     
-    func addLog() {
-        isLoading = true
-        let log = Log(id: "42", description: "Description of a Log", date: Date(), ranking: 3)
-        do {
-            try logFetching.postLog(log: log)
-                .sink { (completion) in
-                    switch completion {
-                    case .finished:
-                        print("postLog completion success")
-                        break
-                    case .failure(let error):
-                        print("Error when trying to post log: \(error)")
-                        break
-                    }
-                    self.fetchLogs()
-                } receiveValue: { (data, response) in
-                    print("receiveValue data: \(data)")
-                    print("receiveValue response: \(response)")
-                    guard let result = try? JSONDecoder().decode(Log.self, from: data) else {
-                        print("error wheny trying to decode data in a Log")
-                        return
-                    }
-                    print("result: \(result)")
-                }
-                .store(in: &cancellables)
-        } catch let error {
-            print("Exception catched when trying to postLog: \(error)")
-        }
-    }
-    
     func delete(at offsets: IndexSet) {
         isLoading = true
         
@@ -92,6 +62,10 @@ class LogsListViewModel : ObservableObject {
             } receiveValue: { (data, response) in
             }
             .store(in: &cancellables)
+    }
+    
+    func onLogAdded() {
+        self.fetchLogs()
     }
     
 }

@@ -68,8 +68,13 @@ struct AddLogView: View {
 struct AddLogView_Previews: PreviewProvider {
     
     static var previews: some View {
-        AddLogView(viewModel: AddLogViewModel(
-            isPresented: .constant(true)
-        ))
+        AddLogView(
+            viewModel: AddLogViewModel(
+                logFetching: LogFetcher(),
+                logAddedCompletion: {
+                },
+                isPresented: .constant(true)
+            )
+        )
     }
 }

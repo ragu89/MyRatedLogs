@@ -32,8 +32,11 @@ struct LogsListView: View {
                     content: {
                         AddLogView(
                             viewModel: AddLogViewModel(
-                                isPresented: $viewModel.isAddLogViewDisplayed
-                            )
+                                logFetching: viewModel.logFetching,
+                                logAddedCompletion: {
+                                    viewModel.onLogAdded()
+                                },
+                                isPresented: $viewModel.isAddLogViewDisplayed)
                         )
                     }
                 )
