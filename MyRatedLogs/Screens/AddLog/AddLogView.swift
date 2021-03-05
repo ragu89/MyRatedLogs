@@ -59,7 +59,7 @@ struct AddLogView: View {
                     "Date of the log:",
                     selection: $viewModel.date,
                     displayedComponents: .date
-                ).datePickerStyle(GraphicalDatePickerStyle())
+                )
             }
         }
     }
