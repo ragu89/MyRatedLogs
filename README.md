@@ -1,4 +1,4 @@
 # MyRatedLogs
 A simple SwiftUI app to play with mockapi.io, Combine and data bindings
 
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/1267845/110128996-b135f780-7dc7-11eb-8ca8-054494c7e6b9.gif)
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/1267845/110129532-594bc080-7dc8-11eb-880a-22dfb6cf6941.gif)
